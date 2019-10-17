@@ -5,10 +5,15 @@
 int main() {
     try {
         stb::builder b("test.sql");
-        b.create("table1").
+        b.table("table1").
             add("id", stb::type_id).
             add("name", stb::type_string(256)).
-            build();
+            add("avatar", stb::type_string(256)).
+            add("size", stb::type_int).
+            index("name").
+            index("size", "name").
+            index("avatar").
+            build(true);
     } catch (stb::Exception& e) {
         printf("%s\n", e.errorMessage());
     }
