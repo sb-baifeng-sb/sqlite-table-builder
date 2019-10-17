@@ -1,0 +1,6 @@
+[submodule "CppSQLite"]
+	path = CppSQLite
+	url = https://github.com/sb-baifeng-sb/CppSQLite.git
+[submodule "sqlite3"]
+	path = sqlite3
+	url = https://github.com/sb-baifeng-sb/sqlite3.git
