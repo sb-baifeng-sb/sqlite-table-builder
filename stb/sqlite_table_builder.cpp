@@ -13,6 +13,17 @@ std::string type_string(int size) {
 }
 std::string type_text = "text";
 
+static std::string _defaultValue(std::string const& type) {
+    if (type == type_id) {
+        return "";
+    } else if (type == type_bool) {
+        return "default '0'";
+    } else if (type == type_int) {
+        return "default '0'";
+    }
+    return "default ''";
+}
+
 builder::builder() {
 
 }
@@ -55,8 +66,8 @@ builder& builder::add(std::string const& fieldName, std::string const& fieldType
 
 void builder::build(bool rebuild) noexcept (false) {
     if (rebuild) {
-        auto stmt = this->mdb.compileStatement("drop table ?;");
-        stmt.bind(1, this->tableName.c_str());
+        auto stmt = this->mdb.compileStatement("drop table ?");
+        stmt.bind(0, this->tableName.c_str());
         stmt.execDML();
     }
     std::string sql = std::string("create table ") + (rebuild ? "" : "if not exists ") + this->tableName;
@@ -67,6 +78,7 @@ void builder::build(bool rebuild) noexcept (false) {
         memset(temp, 0, sizeof(temp));
         sprintf(temp, "`%s` %s not null", item.fieldName.c_str(), item.fieldType.c_str());
         sql += temp;
+        sql = sql + " " + _defaultValue(item.fieldType);
         if (i+1 < (int)this->infos.size()) {
             sql += ", ";
         }
