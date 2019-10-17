@@ -17,6 +17,7 @@ INCLUDE_DIRECTORIES(
 #4.source directory，源文件目录
 file(GLOB SRC_FILES
     "./*.c*"
+    "stb/*.c*"
     "CppSQLite/*.c*"
     "sqlite3/*.c*")
 

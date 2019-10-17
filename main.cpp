@@ -1,8 +1,16 @@
 
 #include "stdio.h"
-#include "sqlite_table_builder.h"
+#include "stb/sqlite_table_builder.h"
 
 int main() {
-    stb::builder b;
+    try {
+        stb::builder b("test.sql");
+        b.create("table1").
+            add("id", stb::type_id).
+            add("name", stb::type_string(256)).
+            build();
+    } catch (stb::Exception& e) {
+        printf("%s\n", e.errorMessage());
+    }
     return 0;
 }
