@@ -33,7 +33,7 @@ public:
 public:
     builder& create(std::string const& tableName);
     builder& add(std::string const& fieldName, std::string const& fieldType);
-    void build(bool rebuild = false) throw (Exception&);
+    void build(bool rebuild = false) noexcept (false);
 private:
     CppSQLite3DB mdb;
     std::string tableName;

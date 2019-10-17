@@ -53,7 +53,7 @@ builder& builder::add(std::string const& fieldName, std::string const& fieldType
     return *this;
 }
 
-void builder::build(bool rebuild) throw (Exception&) {
+void builder::build(bool rebuild) noexcept (false) {
     if (rebuild) {
         auto stmt = this->mdb.compileStatement("drop table ?;");
         stmt.bind(1, this->tableName.c_str());
